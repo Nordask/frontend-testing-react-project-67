@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import pageLoader from '../src/index';
+import pageLoader from '../src/index.js';
 
 const program = new Command();
 
@@ -9,9 +9,8 @@ program
   .description('Page loader')
   .option('-o, --output [path]', 'output dir', '/home/Nordask')
   .argument('<url>')
-  .action(() => {
-    const option = program.opts();
+  .action((url, option) => {
     const file = pageLoader(url, option.output);
     console.log(option, file);
   });
-program.parse();
+program.parse(process.argv);

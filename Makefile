@@ -1,7 +1,9 @@
 install:
 	npm ci
-loader:
-	node bin/index.js
+
+page-loader:
+	npx babel-node bin/page-loader -o ./__fixtures__ https://ru.hexlet.io/courses
+
 lint:
 	npm run eslint .
 publish:
