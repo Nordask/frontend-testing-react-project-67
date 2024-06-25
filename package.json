@@ -8,8 +8,13 @@
     "page-loader": "bin/page-loader.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "eslint": "eslint"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "verbose": true
   },
   "repository": {
     "type": "git",
@@ -21,20 +26,24 @@
     "url": "https://github.com/Nordask/frontend-testing-react-project-67/issues"
   },
   "homepage": "https://github.com/Nordask/frontend-testing-react-project-67#readme",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^12.1.0",
+    "listr": "^0.14.3",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/node": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
+    "@jest/globals": "^29.7.0",
+    "babel": "^6.23.0",
     "babel-jest": "^29.7.0",
     "eslint": "^9.4.0",
-    "globals": "^15.4.0"
-  },
-  "dependencies": {
-    "axios": "^1.7.2",
-    "cheerio": "^1.0.0-rc.12",
-    "commander": "^12.1.0",
+    "globals": "^15.4.0",
     "jest": "^29.7.0",
-    "listr": "^0.14.3"
+    "nock": "^13.5.4"
   }
 }

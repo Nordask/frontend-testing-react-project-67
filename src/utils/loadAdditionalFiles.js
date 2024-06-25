@@ -29,7 +29,7 @@ export const handleLinks = (url) => {
   const tasks = new Listr([
     {
       title: `Downloading file '${url}'`,
-      task: () => axios.get(url, { responseType: 'arraybuffer' })
+      task: (_, task) => axios.get(url, { responseType: 'arraybuffer' })
       .then((response) => { taskData = response; }).catch((e) => task.skip(`Fail load '${url}'. ${e.message}`)),
     },
   ]);
