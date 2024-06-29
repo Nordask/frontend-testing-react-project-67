@@ -17,10 +17,15 @@ const PAGE = '/courses';
 const PAGE_URL = `${BASE_URL}${PAGE}`;
 const ADDITIONAL_FILES_FOLDER = 'ru-hexlet-io-courses_files';
 const MAIN_FILE_NAME = 'ru-hexlet-io-courses.html';
-const IMAGE_FILE_NAME = 'ru-hexlet-io-assets-professions-nodejs.png';
+const IMAGE_FILE_NAME = 'nodejs.png';
 const IMAGE_URL = '/assets/professions/nodejs.png';
+const IMAGE_FILE_NAME_TMP = 'ru-hexlet-io-assets-professions-nodejs.png';
 const SCRIPT_FILE_NAME = 'runtime.js';
 const SCRIPT_URL = '/packs/js/runtime.js';
+const SCRIPT_FILE_NAME_TMP = 'ru-hexlet-io-packs-js-runtime.js';
+const STYLES_FILE_NAME = 'application.css';
+const STYLES_URL = '/assets/application.css';
+const STYLES_FILE_NAME_TMP = 'ru-hexlet-io-assets-application.css';
 
 let tmpDirPath = '';
 
@@ -32,6 +37,7 @@ describe('pageLoading', () => {
     const MAIN_FILE = readFixture(MAIN_FILE_NAME);
     const IMAGE_FILE = readFixture(ADDITIONAL_FILES_FOLDER, IMAGE_FILE_NAME);
     const SCRIPT_FILE = readFixture(ADDITIONAL_FILES_FOLDER, SCRIPT_FILE_NAME);
+    const STYLES_FILE = readFixture(ADDITIONAL_FILES_FOLDER, STYLES_FILE_NAME);
 
     nock(BASE_URL)
       .get(PAGE)
@@ -39,7 +45,9 @@ describe('pageLoading', () => {
       .get(IMAGE_URL)
       .reply(200, IMAGE_FILE)
       .get(SCRIPT_URL)
-      .reply(200, SCRIPT_FILE);
+      .reply(200, SCRIPT_FILE)
+      .get(STYLES_URL)
+      .reply(200, STYLES_FILE);
       
       // .get(`/${ADDITIONAL_FILES_FOLDER}/${CANONICAL_FILE_NAME}`)
       // .reply(200, ADDITIONAL_FILE);
@@ -49,12 +57,14 @@ describe('pageLoading', () => {
     const expectedPage = await readFixture('expected.html');
     const actualPage = await fsp.readFile(path.resolve(tmpDirPath, MAIN_FILE_NAME), 'utf8');
     console.log('qq1', await fsp.readdir(`${tmpDirPath}/${ADDITIONAL_FILES_FOLDER}`));
-    const actualImage = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, IMAGE_FILE_NAME), 'utf8');
-    const actualScript = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, 'ru-hexlet-io-packs-js-runtime.js'), 'utf8');
+    const actualImage = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, IMAGE_FILE_NAME_TMP), 'utf8');
+    const actualScript = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, SCRIPT_FILE_NAME_TMP), 'utf8');
+    const actualStyles = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, STYLES_FILE_NAME_TMP), 'utf-8');
 
     expect(actualPage).toEqual(expectedPage);
     expect(actualImage).toEqual(IMAGE_FILE);
     expect(actualScript).toEqual(SCRIPT_FILE);
+    expect(actualStyles).toEqual(STYLES_FILE);
   });
   it('should reject with error. Wrong url', async () => {
     nock('http://wrong')
