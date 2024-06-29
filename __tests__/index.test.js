@@ -50,4 +50,17 @@ describe('pageLoading', () => {
     expect(actualManifestPage).toEqual(MANIFEST_FILE);
     expect(actualAdditionalPage).toEqual(ADDITIONAL_FILE);
   });
+  it('should reject with error. Wrong url', async () => {
+    nock('http://wrong')
+      .get('/page')
+      .reply(404, '');
+    await expect(pageLoader('http://wrong/page', tmpDirPath)).rejects.toThrow('Request failed with status code 404');
+  });
+  it('should reject with error. Wrong path', async () => {
+    nock(BASE_URL)
+      .get(PAGE)
+      .reply(200, 'data');
+
+    await expect(pageLoader(PAGE_URL, 'notExixstPath')).rejects.toThrow('no such file or directory');
+  });
 });
