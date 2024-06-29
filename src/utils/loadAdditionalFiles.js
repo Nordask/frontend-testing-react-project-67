@@ -43,8 +43,8 @@ export const loadAdditionalFiles = ({ page, url }) => {
   return Promise.all(promises)
     .then((data) => data.filter((file) => file))
     .then((filteredData) => filteredData.map((file) => {
-      const ext = path.extname(file.config.url);
-      const resultPath = `${getFileName(file.config.url)}${ext ?? '.html'}`;
+      const extension = path.extname(file.config.url) || '.html';
+      const resultPath = `${getFileName(file.config.url)}${extension}`;
       return { url: file.config.url, path: resultPath, data: file.data };
     }));
 };

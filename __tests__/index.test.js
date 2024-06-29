@@ -10,7 +10,6 @@ const filename = fileURLToPath(import.meta.url);
 const directoryName = dirname(filename);
 const getFixturePath = (...value) => path.join(directoryName, '..', '__fixtures__', ...value);
 const readFixture = (...value) => readFileSync(getFixturePath(...value), 'utf-8');
-const fixDirname = '__fixtures__';
 
 const BASE_URL = 'https://ru.hexlet.io';
 const PAGE = '/courses';
@@ -26,6 +25,10 @@ const SCRIPT_FILE_NAME_TMP = 'ru-hexlet-io-packs-js-runtime.js';
 const STYLES_FILE_NAME = 'application.css';
 const STYLES_URL = '/assets/application.css';
 const STYLES_FILE_NAME_TMP = 'ru-hexlet-io-assets-application.css';
+const CANONICAL_FILE_NAME = 'canonical.html';
+const CANONICAL_URL = '/courses';
+const CANONICAL_FILE_NAME_TMP = 'ru-hexlet-io-courses.html';
+
 
 let tmpDirPath = '';
 
@@ -38,6 +41,7 @@ describe('pageLoading', () => {
     const IMAGE_FILE = readFixture(ADDITIONAL_FILES_FOLDER, IMAGE_FILE_NAME);
     const SCRIPT_FILE = readFixture(ADDITIONAL_FILES_FOLDER, SCRIPT_FILE_NAME);
     const STYLES_FILE = readFixture(ADDITIONAL_FILES_FOLDER, STYLES_FILE_NAME);
+    const CANONICAL_FILE = readFixture(ADDITIONAL_FILES_FOLDER, CANONICAL_FILE_NAME);
 
     nock(BASE_URL)
       .get(PAGE)
@@ -47,24 +51,24 @@ describe('pageLoading', () => {
       .get(SCRIPT_URL)
       .reply(200, SCRIPT_FILE)
       .get(STYLES_URL)
-      .reply(200, STYLES_FILE);
+      .reply(200, STYLES_FILE)
+      .get(CANONICAL_URL)
+      .reply(200, CANONICAL_FILE);
       
-      // .get(`/${ADDITIONAL_FILES_FOLDER}/${CANONICAL_FILE_NAME}`)
-      // .reply(200, ADDITIONAL_FILE);
-
     await pageLoader(PAGE_URL, tmpDirPath);
 
     const expectedPage = await readFixture('expected.html');
     const actualPage = await fsp.readFile(path.resolve(tmpDirPath, MAIN_FILE_NAME), 'utf8');
-    console.log('qq1', await fsp.readdir(`${tmpDirPath}/${ADDITIONAL_FILES_FOLDER}`));
     const actualImage = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, IMAGE_FILE_NAME_TMP), 'utf8');
     const actualScript = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, SCRIPT_FILE_NAME_TMP), 'utf8');
     const actualStyles = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, STYLES_FILE_NAME_TMP), 'utf-8');
+    const actualCanonical = await fsp.readFile(path.resolve(tmpDirPath, ADDITIONAL_FILES_FOLDER, CANONICAL_FILE_NAME_TMP), 'utf-8');
 
     expect(actualPage).toEqual(expectedPage);
     expect(actualImage).toEqual(IMAGE_FILE);
     expect(actualScript).toEqual(SCRIPT_FILE);
     expect(actualStyles).toEqual(STYLES_FILE);
+    expect(actualCanonical).toEqual(CANONICAL_FILE);
   });
   it('should reject with error. Wrong url', async () => {
     nock('http://wrong')
