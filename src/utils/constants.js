@@ -3,3 +3,5 @@ export const TAGS = [
     { name: 'script', src: 'src' },
     { name: 'img', src: 'src' },
 ];
+
+export const DEBUGGER_BREAK_ROW = '\n------------------------------\n';
