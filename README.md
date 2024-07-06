@@ -17,7 +17,19 @@ make link
 
 ## Usage
 
+### Istall
+
+make install
+
+### Run
+
+npx babel-node bin/page-loader [-o] <address> <url>
+
+
 ## Example of usage
 
-## Valid URL
+### Valid URL and folder
 [![asciicast](https://asciinema.org/a/uQqkHilx6hJLGrKqs5IomYpkM.svg)](https://asciinema.org/a/uQqkHilx6hJLGrKqs5IomYpkM)
+
+### Invalid folder
+[![asciicast](https://asciinema.org/a/e7UCK2ADNb6GjBRRRHuCWIiLn.svg)](https://asciinema.org/a/e7UCK2ADNb6GjBRRRHuCWIiLn)
