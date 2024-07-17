@@ -40,7 +40,7 @@ const pageLoader = (url, outputPath = process.cwd()) => {
     })
     .then(() => {
       const mainFileName = getFileName(url);
-      return { filepath: `/${outputPath}/${mainFileName}.html` };
+      return { filepath: `${outputPath}/${mainFileName}.html` };
     });
 };
 
