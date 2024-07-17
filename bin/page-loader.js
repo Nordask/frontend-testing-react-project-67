@@ -11,7 +11,12 @@ program
   .option('-o, --output [path]', 'output dir', '/home/Nordask')
   .argument('<url>')
   .action((url, option) => {
-    const file = pageLoader(url, option.output);
-    console.log(option, file);
+    pageLoader(url, option.output)
+      .then(({ filepath }) => {
+        console.log(filepath);
+      })
+      .catch((exception) => {
+        console.error(exception.toString());
+      });
   });
 program.parse(process.argv);

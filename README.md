@@ -29,7 +29,7 @@ npx babel-node bin/page-loader [-o] <address> <url>
 ## Example of usage
 
 ### Valid URL and folder
-[![asciicast](https://asciinema.org/a/uQqkHilx6hJLGrKqs5IomYpkM.svg)](https://asciinema.org/a/uQqkHilx6hJLGrKqs5IomYpkM)
+[![asciicast](https://asciinema.org/a/rspBDMO3LM6qEgznrrJU7jcOs.svg)](https://asciinema.org/a/rspBDMO3LM6qEgznrrJU7jcOs)
 
-### Invalid folder
-[![asciicast](https://asciinema.org/a/e7UCK2ADNb6GjBRRRHuCWIiLn.svg)](https://asciinema.org/a/e7UCK2ADNb6GjBRRRHuCWIiLn)
+### File already exists error
+[![asciicast](https://asciinema.org/a/JdSkSZtblMunpetiyEzbU9rG5.svg)](https://asciinema.org/a/JdSkSZtblMunpetiyEzbU9rG5)
