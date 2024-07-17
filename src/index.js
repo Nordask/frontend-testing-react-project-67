@@ -35,7 +35,12 @@ const pageLoader = (url, outputPath = process.cwd()) => {
             return file.url;
           });
       });
+
       return Promise.all(promises);
+    })
+    .then(() => {
+      const mainFileName = getFileName(url);
+      return { filepath: `/${outputPath}/${mainFileName}.html` };
     });
 };
 
